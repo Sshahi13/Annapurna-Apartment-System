@@ -1,0 +1,120 @@
+.admin-layout {
+  min-height: 100vh;
+  background: var(--bg-color);
+}
+
+.admin-navbar {
+  background: var(--white);
+  box-shadow: var(--shadow);
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.sidebar-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--primary-color);
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+}
+
+.btn-logout-top {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.btn-logout-top:hover {
+  background: var(--secondary-color);
+  transform: translateY(-1px);
+}
+
+.admin-content-wrapper {
+  display: flex;
+}
+
+.admin-sidebar {
+  width: 250px;
+  background: var(--white);
+  box-shadow: var(--shadow);
+  min-height: calc(100vh - 70px);
+  transition: transform 0.3s ease;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 20px 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  margin: 0;
+}
+
+.sidebar-menu a,
+.sidebar-menu button {
+  display: block;
+  padding: 15px 30px;
+  color: var(--text-color);
+  text-decoration: none;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu button:hover,
+.sidebar-menu a.active {
+  background: var(--bg-color);
+  color: var(--secondary-color);
+}
+
+.admin-main {
+  flex: 1;
+  padding: 30px;
+}
+
+@media (max-width: 768px) {
+  .admin-sidebar {
+    position: fixed;
+    left: 0;
+    top: 70px;
+    height: calc(100vh - 70px);
+    z-index: 99;
+    transform: translateX(-100%);
+  }
+
+  .admin-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .admin-main {
+    padding: 20px;
+  }
+}

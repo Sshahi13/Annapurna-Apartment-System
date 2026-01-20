@@ -1,0 +1,20 @@
+.admin-payments {
+  max-width: 1400px;
+}
+
+.payments-section {
+  margin-top: 30px;
+}
+
+.payment-card {
+  background: var(--white);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+}
+
+.payment-card h4 {
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}

@@ -13,11 +13,17 @@ const PaymentSuccess = () => {
     useEffect(() => {
         const query = new URLSearchParams(location.search);
         const pidx = query.get('pidx');
+        const method = query.get('method');
+
+        if (method === 'offline') {
+            setStatus('offline_success');
+            return;
+        }
 
         if (pidx && !hasVerified.current) {
             hasVerified.current = true;
             verify(pidx);
-        } else if (!pidx) {
+        } else if (!pidx && !method) {
             setStatus('error');
         }
     }, [location]);
@@ -84,6 +90,16 @@ const PaymentSuccess = () => {
                                 <p><strong>Amount:</strong> Rs. {details.total_amount / 100}</p>
                             </div>
                         )}
+                        <div style={{ marginTop: '30px' }}>
+                            <button onClick={() => navigate('/')} className="btn btn-primary">Go to Home</button>
+                        </div>
+                    </div>
+                )}
+
+                {status === 'offline_success' && (
+                    <div>
+                        <h2 style={{ color: '#28a745' }}>Booking Successful!</h2>
+                        <p>Your booking request has been sent. Please wait for admin confirmation.</p>
                         <div style={{ marginTop: '30px' }}>
                             <button onClick={() => navigate('/')} className="btn btn-primary">Go to Home</button>
                         </div>

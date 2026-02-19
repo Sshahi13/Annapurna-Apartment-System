@@ -154,10 +154,7 @@ const Reservation = () => {
       // For "Pay at the Apartment", create reservation with 'Not Confirm' status
       await reservationAPI.create(payload)
 
-      const successMsg = 'Your booking request has been sent. Please wait for admin confirmation.'
-      setMessage(successMsg)
-      alert(successMsg)
-      setTimeout(() => navigate('/'), 2000)
+      navigate('/payment-success?method=offline')
     } catch (error) {
       setIsSubmitting(false)
       console.error('Reservation error:', error)
@@ -303,8 +300,8 @@ const Reservation = () => {
                       value={formData.min}
                       onChange={handleChange}
                       required
-                      readOnly={!!location.state?.checkin}
-                      style={location.state?.checkin ? { backgroundColor: '#f0f0f0', cursor: 'not-allowed' } : {}}
+                      readOnly
+                      style={{ backgroundColor: '#f0f0f0', cursor: 'not-allowed' }}
                     />
                   </div>
                   <div className="form-group">
@@ -316,8 +313,8 @@ const Reservation = () => {
                       onChange={handleChange}
                       required
                       min={formData.min}
-                      readOnly={!!location.state?.checkout}
-                      style={location.state?.checkout ? { backgroundColor: '#f0f0f0', cursor: 'not-allowed' } : {}}
+                      readOnly
+                      style={{ backgroundColor: '#f0f0f0', cursor: 'not-allowed' }}
                     />
                   </div>
                 </div>

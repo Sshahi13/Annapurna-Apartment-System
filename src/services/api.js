@@ -68,6 +68,8 @@ export const adminAPI = {
   login: (credentials) => api.post('/admin/login', credentials),
   register: (credentials) => api.post('/admin/register', credentials),
   logout: () => api.post('/admin/logout'),
+  forgotPassword: (data) => api.post('/admin/forgot-password', data),
+  resetPassword: (data) => api.post('/admin/reset-password', data),
 }
 
 export default api

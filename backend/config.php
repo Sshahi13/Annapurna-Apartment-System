@@ -12,7 +12,10 @@ $KHALTI_SECRET_KEY = '4513ed9f487d44ec91f9656e77b9d0fe';
 $con = mysqli_connect($host, $user, $pass, $db);
 
 if (mysqli_connect_errno()) {
-    die("Failed to connect to MySQL: " . mysqli_connect_error());
+    http_response_code(500);
+    header('Content-Type: application/json');
+    echo json_encode(["error" => "Database connection failed: " . mysqli_connect_error()]);
+    exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {

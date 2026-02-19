@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext'
 import './AdminLogin.css'
 
 const AdminLogin = () => {
-  const [credentials, setCredentials] = useState({ username: '', password: '' })
+  const [credentials, setCredentials] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const { login } = useAuth()
@@ -20,10 +20,18 @@ const AdminLogin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(credentials.email)) {
+      setError('Please enter a valid email address')
+      return
+    }
+
     setLoading(true)
     setError('')
 
-    const result = await login(credentials.username, credentials.password)
+    const result = await login(credentials.email, credentials.password)
 
     if (result.success) {
       navigate('/admin')
@@ -42,10 +50,10 @@ const AdminLogin = () => {
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <input
-                type="text"
-                name="username"
-                placeholder="Username"
-                value={credentials.username}
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                value={credentials.email}
                 onChange={handleChange}
                 required
               />
@@ -66,6 +74,7 @@ const AdminLogin = () => {
             </button>
             <div className="login-footer">
               <p>Don't have an account? <Link to="/admin/register">Create one</Link></p>
+              <p><Link to="/admin/forgot-password">Forgot Password?</Link></p>
             </div>
           </form>
         </div>

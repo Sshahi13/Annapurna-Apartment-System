@@ -25,19 +25,37 @@ const PaymentSuccess = () => {
     const verify = async (pidx) => {
         try {
             const response = await paymentAPI.verifyPayment({ pidx });
-            if (response.data.status === 'Completed') {
+            console.log('Khalti Verification Response:', response.data);
+
+            // Handle case-insensitivity and possible variations
+            const paymentStatus = response.data.status?.toLowerCase();
+
+            if (paymentStatus === 'completed' || paymentStatus === 'success') {
                 // Create reservation now that payment is confirmed
                 const pendingData = localStorage.getItem('pendingReservation');
+                console.log('Pending Reservation Data:', pendingData);
+
                 if (pendingData) {
                     const reservationData = JSON.parse(pendingData);
                     reservationData.stat = 'Not Confirm'; // Ensure it's in New Bookings for admin to confirm
-                    await reservationAPI.create(reservationData);
-                    localStorage.removeItem('pendingReservation');
-                }
+                    console.log('Creating reservation with data:', reservationData);
 
-                setStatus('success');
-                setDetails(response.data);
+                    try {
+                        const resResult = await reservationAPI.create(reservationData);
+                        console.log('Reservation Create Result:', resResult.data);
+                        localStorage.removeItem('pendingReservation');
+                        setStatus('success');
+                        setDetails(response.data);
+                    } catch (createError) {
+                        console.error('Failed to create reservation record:', createError);
+                        setStatus('error'); // Show error if we paid but couldn't save
+                    }
+                } else {
+                    console.error('No pending reservation data found in localStorage.');
+                    setStatus('error');
+                }
             } else {
+                console.warn('Payment not completed. Status:', response.data.status);
                 setStatus('failed');
             }
         } catch (error) {

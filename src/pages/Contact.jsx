@@ -11,6 +11,7 @@ const Contact = () => {
     phoneno: '',
     email: '',
   })
+  const mapSrc = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d900399.2948848692!2d82.79571533203125!3d28.17129642959349!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399595137e79c46f%3A0xda2094170a9f5dea!2sAnnapurna%20Village%20Housing!5e0!3m2!1sen!2snp!4v1769310197168!5m2!1sen!2snp";
   const [message, setMessage] = useState('')
 
   const handleChange = (e) => {
@@ -102,11 +103,11 @@ const Contact = () => {
             </div>
             <div className="map-container">
               <iframe
-                src="https://www.google.com/maps/place/Annapurna+Cable+Car/@28.2269247,83.947396,1591m/data=!3m1!1e3!4m14!1m7!3m6!1s0x39959520918498bb:0xfca6adfa336fd6c7!2sPhewa+Lake!8m2!3d28.2153837!4d83.9453168!16s%2Fm%2F03m3_m_!3m5!1s0x39959511b7655099:0xd1a8a5e182179440!8m2!3d28.2292438!4d83.9498537!16s%2Fg%2F11sr64fs46?entry=ttu&g_ep=EgoyMDI2MDExMy4wIKXMDSoASAFQAw%3D%3D"
+                src={mapSrc}
                 width="100%"
                 height="450"
                 style={{ border: 0 }}
-                allowFullScreen
+                allowFullScreen=""
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Annapurna Apartment Location"

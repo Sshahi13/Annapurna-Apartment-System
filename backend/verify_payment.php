@@ -31,8 +31,10 @@ $err = curl_error($curl);
 curl_close($curl);
 
 if ($err) {
+    file_put_contents('khalti_debug.log', "CURL Error: " . $err . "\n", FILE_APPEND);
     sendResponse(["error" => "CURL Error: " . $err], 500);
 } else {
+    file_put_contents('khalti_debug.log', "Response: " . $response . "\n", FILE_APPEND);
     echo $response; // Send Khalti's verification response back to React
 }
 ?>

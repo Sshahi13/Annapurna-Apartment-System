@@ -218,39 +218,7 @@ const AdminReservations = () => {
               </div>
             </div>
 
-            {reservation.stat === 'Not Confirm' && (
-              <div className="detail-card">
-                <h4>Confirm Reservation</h4>
-                <form className="confirm-form">
-                  <div className="price-breakdown">
-                    <div className="price-item">
-                      <span>Room Price:</span>
-                      <span>Rs. {formData.roomPrice.toLocaleString()}</span>
-                    </div>
-                    <div className="price-item">
-                      <span>Bed Price:</span>
-                      <span>Rs. {formData.bedPrice.toLocaleString()}</span>
-                    </div>
-                    <div className="price-item total">
-                      <span>Total Amount:</span>
-                      <span>Rs. {formData.total.toLocaleString()}</span>
-                    </div>
-                  </div>
-                  {message && (
-                    <div className={`form-message ${message.includes('successfully') ? 'success' : 'error'}`}>
-                      {message}
-                    </div>
-                  )}
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={handleConfirm}
-                  >
-                    Confirm Reservation
-                  </button>
-                </form>
-              </div>
-            )}
+            {/* Confirmation logic removed as bookings are now auto-confirmed */}
             <div className="actions">
               <button onClick={() => navigate('/admin/reservations')} className="btn btn-secondary">
                 Back to List

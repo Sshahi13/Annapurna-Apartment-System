@@ -16,8 +16,8 @@ const Navbar = () => {
             <h1>ANNAPURNA <span>APARTMENT</span></h1>
             <p className="logo-caption">Your Dreamy Apartment</p>
           </Link>
-          
-          <button 
+
+          <button
             className="navbar-toggle"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle navigation"
@@ -29,8 +29,8 @@ const Navbar = () => {
 
           <ul className={`navbar-menu ${isOpen ? 'active' : ''}`}>
             <li>
-              <Link 
-                to="/" 
+              <Link
+                to="/"
                 className={isActive('/') ? 'active' : ''}
                 onClick={() => setIsOpen(false)}
               >
@@ -38,8 +38,8 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link 
-                to="/about" 
+              <Link
+                to="/about"
                 className={isActive('/about') ? 'active' : ''}
                 onClick={() => setIsOpen(false)}
               >
@@ -47,8 +47,8 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link 
-                to="/gallery" 
+              <Link
+                to="/gallery"
                 className={isActive('/gallery') ? 'active' : ''}
                 onClick={() => setIsOpen(false)}
               >
@@ -56,17 +56,17 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link 
-                to="/rooms" 
+              <Link
+                to="/rooms"
                 className={isActive('/rooms') ? 'active' : ''}
                 onClick={() => setIsOpen(false)}
               >
-                Flats
+                Rooms
               </Link>
             </li>
             <li>
-              <Link 
-                to="/contact" 
+              <Link
+                to="/contact"
                 className={isActive('/contact') ? 'active' : ''}
                 onClick={() => setIsOpen(false)}
               >

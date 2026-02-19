@@ -58,9 +58,9 @@ const AdminPayments = () => {
                         <td>{payment.title} {payment.fname} {payment.lname}</td>
                         <td>{payment.troom}</td>
                         <td>{payment.tbed}</td>
-                        <td>{payment.days || payment.people}</td>
-                        <td>Rs. {payment.room?.toLocaleString()}</td>
-                        <td>Rs. {payment.fintot?.toLocaleString()}</td>
+                        <td>{payment.noofdays || 0}</td>
+                        <td>Rs. {parseFloat(payment.room).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                        <td>Rs. {parseFloat(payment.fintot).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                         <td>{payment.payment}</td>
                         <td>
                           <Link to={`/admin/invoice/${payment['p-id']}`} className="btn btn-primary btn-sm">

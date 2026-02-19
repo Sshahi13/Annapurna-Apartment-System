@@ -14,23 +14,69 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [sessionExpired, setSessionExpired] = useState(false)
+
+  // Timeout duration: 3 minutes (3 * 60 * 1000 ms)
+  const SESSION_TIMEOUT = 3 * 60 * 1000
+
+  const logout = () => {
+    setUser(null)
+    localStorage.removeItem('adminUser')
+    setSessionExpired(false)
+  }
 
   useEffect(() => {
     // Check for existing session
     const savedUser = localStorage.getItem('adminUser')
     if (savedUser) {
-      setUser(JSON.parse(savedUser))
+      const userData = JSON.parse(savedUser)
+      // Check if session stored time exists and is valid
+      if (userData.loginTime && Date.now() - userData.loginTime > SESSION_TIMEOUT) {
+        logout()
+      } else {
+        setUser(userData)
+      }
     }
     setLoading(false)
   }, [])
 
-  const login = async (username, password) => {
+  // Inactivity tracking
+  useEffect(() => {
+    let timeoutId;
+
+    const resetTimer = () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      if (user) {
+        timeoutId = setTimeout(() => {
+          setSessionExpired(true)
+          logout()
+          alert('Your session has expired due to inactivity. Please login again.')
+        }, SESSION_TIMEOUT);
+      }
+    };
+
+    // Events to watch for activity
+    const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
+
+    if (user) {
+      events.forEach(event => document.addEventListener(event, resetTimer));
+      resetTimer(); // Initial start
+    }
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      events.forEach(event => document.removeEventListener(event, resetTimer));
+    };
+  }, [user]);
+
+  const login = async (email, password) => {
     try {
-      const response = await adminAPI.login({ username, password })
+      const response = await adminAPI.login({ email, password })
 
       if (response.data && !response.data.error) {
-        setUser(response.data)
-        localStorage.setItem('adminUser', JSON.stringify(response.data))
+        const userData = { ...response.data, loginTime: Date.now() }
+        setUser(userData)
+        localStorage.setItem('adminUser', JSON.stringify(userData))
         return { success: true }
       } else {
         return { success: false, error: response.data.error || 'Invalid credentials' }
@@ -42,9 +88,9 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  const register = async (username, password) => {
+  const register = async (email, password, phoneno, fullname) => {
     try {
-      const response = await adminAPI.register({ username, password })
+      const response = await adminAPI.register({ email, password, phoneno, fullname })
 
       if (response.data && !response.data.error) {
         return { success: true }
@@ -58,11 +104,6 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  const logout = () => {
-    setUser(null)
-    localStorage.removeItem('adminUser')
-  }
-
   const value = {
     user,
     login,
@@ -70,6 +111,7 @@ export const AuthProvider = ({ children }) => {
     logout,
     loading,
     isAuthenticated: !!user,
+    sessionExpired
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

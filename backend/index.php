@@ -2,21 +2,20 @@
 // Include configuration (database connection + CORS)
 require_once 'config.php';
 
-// Get the request URI
-$request_uri = $_SERVER['REQUEST_URI'];
+// Get the request URI and scripts directory
+$script_name = $_SERVER['SCRIPT_NAME']; // /Annapurna_Appartment/backend/index.php
+$base_path = dirname($script_name);      // /Annapurna_Appartment/backend
+$request_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-// Parse the path
-// If running on localhost:8000, the URI might be /rooms or /rooms/1
-// We want to remove query strings if any
-$parsed_url = parse_url($request_uri);
-$path = trim($parsed_url['path'], '/');
+// Calculate relative path
+$path = substr($request_uri, strlen($base_path));
+$path = trim($path, '/');
 
 // Split path into parts
 $path_parts = explode('/', $path);
 $resource = $path_parts[0] ?? '';
 
-// Set PATH_INFO for the sub-scripts (e.g., if path is rooms/1, PATH_INFO should be /1)
-// Re-construct the path info from the remaining parts
+// Set PATH_INFO for the sub-scripts
 $_SERVER['PATH_INFO'] = '/' . implode('/', array_slice($path_parts, 1));
 
 // Route the request
@@ -38,6 +37,9 @@ switch ($resource) {
         break;
     case 'admin':
         require 'auth.php';
+        break;
+    case 'debug':
+        require 'debug_info.php';
         break;
     case 'gallery':
         require 'gallery.php';

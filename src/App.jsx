@@ -11,6 +11,8 @@ import Reservation from './pages/Reservation'
 import PaymentSuccess from './pages/PaymentSuccess'
 import AdminLogin from './admin/AdminLogin'
 import AdminRegister from './admin/AdminRegister'
+import ForgotPassword from './admin/ForgotPassword'
+import ResetPassword from './admin/ResetPassword'
 import AdminDashboard from './admin/AdminDashboard'
 import AdminGallery from './admin/AdminGallery'
 import AdminRooms from './admin/AdminRooms'
@@ -37,6 +39,8 @@ function App() {
 
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/register" element={<AdminRegister />} />
+          <Route path="/admin/forgot-password" element={<ForgotPassword />} />
+          <Route path="/admin/reset-password" element={<ResetPassword />} />
           <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
           <Route path="/admin/gallery" element={<ProtectedRoute><AdminGallery /></ProtectedRoute>} />
           <Route path="/admin/rooms" element={<ProtectedRoute><AdminRooms /></ProtectedRoute>} />

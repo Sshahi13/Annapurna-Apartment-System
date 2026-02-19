@@ -13,8 +13,10 @@ CREATE TABLE `contact` (
 
 CREATE TABLE `login` (
   `id` int(10) UNSIGNED NOT NULL,
-  `usname` varchar(30) DEFAULT NULL,
-  `pass` varchar(255) DEFAULT NULL
+  `email` varchar(255) DEFAULT NULL,
+  `pass` varchar(255) DEFAULT NULL,
+  `phoneno` varchar(10) DEFAULT NULL,
+  `fullname` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `payment` (

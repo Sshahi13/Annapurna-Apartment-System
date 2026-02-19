@@ -1,3 +1,6 @@
+
+/* ... existing styles ... */
+
 .admin-login {
   min-height: 100vh;
   display: flex;
@@ -78,4 +81,119 @@
 .login-box .btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+/* Updated Password Strength Styles */
+.password-section {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+    color: #666;
+    background: none;
+    border: none;
+    font-size: 0.9rem;
+}
+
+.password-criteria-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 20px 0;
+  font-size: 0.85rem;
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.criteria-item {
+  color: #dc3545; /* Red by default */
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.criteria-item.valid {
+  color: #28a745; /* Green when valid */
+}
+
+.criteria-item svg {
+    margin-right: 8px;
+    width: 14px;
+    height: 14px;
+}
+
+.strength-meter-container {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.strength-meter-bar {
+    height: 6px;
+    width: 100%;
+    background-color: #e9ecef;
+    border-radius: 3px;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.strength-meter-fill {
+    height: 100%;
+    width: 0%;
+    background-color: #dc3545;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* Colors for strength levels */
+.strength-weak .strength-meter-fill { background-color: #dc3545; width: 33%; }
+.strength-medium .strength-meter-fill { background-color: #ffc107; width: 66%; }
+.strength-strong .strength-meter-fill { background-color: #28a745; width: 100%; }
+
+.strength-text {
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-align: right;
+    display: block;
+}
+
+.strength-weak .strength-text { color: #dc3545; }
+.strength-medium .strength-text { color: #ffc107; text-shadow: 0px 0px 1px #999; /* better visibility on white */ }
+.strength-strong .strength-text { color: #28a745; }
+
+
+.login-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.login-footer a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+}
+
+.instruction-text {
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 25px;
+}
+
+.success-message {
+  background: #d4edda;
+  color: #155724;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 20px;
+  border: 1px solid #c3e6cb;
 }

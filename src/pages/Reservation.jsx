@@ -119,9 +119,10 @@ const Reservation = () => {
       // Send movein instead of min to match backend expectation more clearly
       const payload = {
         ...formData,
+        room_no: roomNo || null,
         movein: formData.min,
         occupancy: formData.occupancy,
-        stat: 'Not Confirm', // All new bookings start as Not Confirm
+        stat: 'Confirm', // Automatically confirm booking
         roomPrice: prices.room_price,
         bedPrice: prices.bed_price,
         totalPrice: prices.total,
@@ -302,6 +303,8 @@ const Reservation = () => {
                       value={formData.min}
                       onChange={handleChange}
                       required
+                      readOnly={!!location.state?.checkin}
+                      style={location.state?.checkin ? { backgroundColor: '#f0f0f0', cursor: 'not-allowed' } : {}}
                     />
                   </div>
                   <div className="form-group">
@@ -313,6 +316,8 @@ const Reservation = () => {
                       onChange={handleChange}
                       required
                       min={formData.min}
+                      readOnly={!!location.state?.checkout}
+                      style={location.state?.checkout ? { backgroundColor: '#f0f0f0', cursor: 'not-allowed' } : {}}
                     />
                   </div>
                 </div>
